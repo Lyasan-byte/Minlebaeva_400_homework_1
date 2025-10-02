@@ -1,5 +1,6 @@
-package server;
+package com.lays.server;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
@@ -13,11 +14,11 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.sendRedirect("login.html");
+        resp.sendRedirect("login.ftl");
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
 
@@ -34,7 +35,7 @@ public class LoginServlet extends HttpServlet {
             cookie.setPath("/");
             resp.addCookie(cookie);
 
-            resp.sendRedirect("main.jsp");
+            req.getRequestDispatcher("main.ftl").forward(req, resp);
         } else {
             resp.sendRedirect("/login");
         }

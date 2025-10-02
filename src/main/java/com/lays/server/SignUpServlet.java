@@ -1,4 +1,5 @@
-package server;
+package com.lays.server;
+
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,7 +12,7 @@ public class SignUpServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.sendRedirect("sign_up.html");
+        resp.sendRedirect("signUp.ftl");
     }
 
     @Override
@@ -21,9 +22,9 @@ public class SignUpServlet extends HttpServlet {
 
         if (login != null && password != null && !login.trim().isEmpty() && !password.trim().isEmpty()) {
             LoginServlet.USERS.put(login.trim(), password.trim());
-            resp.sendRedirect("login.html");
+            resp.sendRedirect("login.ftl");
         } else {
-            resp.sendRedirect("sign_up.html");
+            resp.sendRedirect("signUp.ftl");
         }
     }
 }

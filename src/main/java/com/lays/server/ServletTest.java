@@ -1,4 +1,4 @@
-package server;
+package com.lays.server;
 
 import com.lays.http.HttpClient;
 
