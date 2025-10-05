@@ -1,16 +1,12 @@
 package com.lays.server;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+
 
 @WebServlet(name = "Login", urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
-
-    public static final Map<String, String> USERS = new HashMap<>();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -18,26 +14,29 @@ public class LoginServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
 
-        if (login != null && password != null
-                && USERS.containsKey(login)
-                && USERS.get(login).equals(password)) {
+        if (login == null || login.isEmpty() || password == null || password.isEmpty()) {
+            resp.sendRedirect("login.ftl");
+            return;
+        }
 
-            HttpSession session = req.getSession();
-            session.setAttribute("user", login);
-            session.setMaxInactiveInterval(60 * 60);
+        String storedPassword = SignUpServlet.USERS.get(login);
+
+        if (storedPassword != null && storedPassword.equals(password)) {
+            HttpSession httpSession = req.getSession();
+            httpSession.setAttribute("user", login);
+            httpSession.setMaxInactiveInterval(60 * 60);
 
             Cookie cookie = new Cookie("user", login);
             cookie.setMaxAge(24 * 60 * 60);
-            cookie.setPath("/");
             resp.addCookie(cookie);
 
-            req.getRequestDispatcher("main.ftl").forward(req, resp);
+            resp.sendRedirect("main");
         } else {
-            resp.sendRedirect("/login");
+            resp.sendRedirect("login.ftl");
         }
     }
 }

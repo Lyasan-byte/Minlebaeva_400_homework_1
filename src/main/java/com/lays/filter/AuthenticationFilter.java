@@ -16,15 +16,29 @@ import java.io.IOException;
 public class AuthenticationFilter implements Filter {
 
     @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        Filter.super.init(filterConfig);
+    }
+
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        HttpSession session = ((HttpServletRequest) request).getSession(false);
-        String requestURI = ((HttpServletRequest) request).getRequestURI();
-        if (session == null &&
-                !requestURI.contains("login") &&
-                !requestURI.contains("signUp") &&
-                !requestURI.endsWith(".ftl") &&
-                !requestURI.equals("/")) {
-            ((HttpServletResponse) response).sendRedirect("/login");
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
+        String requestURI = httpRequest.getRequestURI();
+
+        HttpSession session = httpRequest.getSession(false);
+
+        if (requestURI.endsWith(".ftl") ||
+                requestURI.contains("login") ||
+                requestURI.contains("sign_up") ||
+                requestURI.equals("/") ||
+                requestURI.endsWith("index.ftl")) {
+            chain.doFilter(request, response);
+            return;
+        }
+
+        if (session == null) {
+            httpResponse.sendRedirect("/login.ftl");
             return;
         }
 

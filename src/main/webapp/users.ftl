@@ -11,7 +11,7 @@
         Имя Очки
         <br>
         <#list users as u>
-            ${u.name} ${u.score}
+            ${u.name} ${u.login}
             <br>
         </#list>
     </#if>

@@ -36,6 +36,7 @@ public class LoggingFilter extends HttpFilter {
 
             LOGGER.info("{}: request params : {}", req.getRemoteAddr(), paramStr);
         }
+        chain.doFilter(req, res);
     }
 
     @Override

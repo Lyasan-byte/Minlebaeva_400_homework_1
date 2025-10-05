@@ -1,17 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login page</title>
-</head>
-<body>
-<form method="post" action="/login">
-    Login:
-    <input type="text" name="login" required>
-    Password:
-    <input type="password" name="password" required>
-    <br><br>
-    <input type="submit" value="Login">
-</form>
-</body>
-</html>
+<#include "base.ftl">
+
+<#macro title>Enter</#macro>
+
+<#macro content>
+    <form method="post" action="/login">
+        Логин:
+        <input type="text" name="login">
+        Пароль:
+        <input type="password" name="password">
+        <br>
+        <input type="submit" value="Войти">
+    </form>
+
+    <br>
+    <a href="sign_up.ftl">Регистрация</a>
+</#macro>

@@ -1,6 +1,8 @@
 package com.lays.server;
 
 import com.lays.dto.UserDto;
+import com.lays.service.UserService;
+import com.lays.service.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,10 +14,12 @@ import java.util.List;
 
 @WebServlet(name = "User", urlPatterns = "/user")
 public class UserServlet extends HttpServlet {
+    private final UserService userService = new UserServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("users", List.of(new UserDto("Ivan", 100, "pro100Ivan")));
+        List<UserDto> users = userService.getAll();
+        req.setAttribute("users", users);
         req.getRequestDispatcher("users.ftl").forward(req, resp);
     }
 }

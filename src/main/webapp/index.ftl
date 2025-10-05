@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Welcome</title>
-</head>
-<body>
-<h1>Welcome to our application</h1>
-<p><a href="login.ftl">Login</a></p>
-<p><a href="signUp.ftl">Sign Up</a></p>
-</body>
-</html>
+<#include "base.ftl">
+
+<#macro title>Main</#macro>
+
+<#macro content>
+    <div>
+        <p>Main Page.</p>
+        <a href="/login">Войти</a>
+        <a href="/sign_up">Регистрация</a>
+        <a href="/main">Кабинет</a>
+    </div>
+</#macro>
