@@ -1,4 +1,8 @@
-package com.lays.server;
+package com.lays.servlet;
+
+import com.lays.dao.UserDao;
+import com.lays.dao.UserDaoImpl;
+import com.lays.entity.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,8 +20,17 @@ public class MainServlet extends HttpServlet {
             return;
         }
 
-        String username = (String) session.getAttribute("user");
-        String sessionId = session.getId();
+        String login = (String) session.getAttribute("user");
+        UserDao userDao = new UserDaoImpl();
+        User user = userDao.getByLogin(login);
+
+        if (user == null) {
+            resp.sendRedirect("login.ftl");
+            return;
+        }
+
+        req.setAttribute("username", user.getName());
+        req.setAttribute("sessionId", session.getId());
 
         String cookieUser = "";
         Cookie[] cookies = req.getCookies();
@@ -28,10 +41,9 @@ public class MainServlet extends HttpServlet {
                 }
             }
         }
-
-        req.setAttribute("username", username);
-        req.setAttribute("sessionId", sessionId);
         req.setAttribute("cookieUser", cookieUser);
+        req.setAttribute("photoUrl", user.getPhotoUrl());
+
         req.getRequestDispatcher("main.ftl").forward(req, resp);
     }
 }

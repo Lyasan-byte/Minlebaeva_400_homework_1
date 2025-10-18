@@ -5,12 +5,13 @@
 <#macro content>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
-    <form method="post" action="/sign_up">
+    <form method="post" action="/sign_up" enctype="multipart/form-data">
         Имя: <input type="text" name="name" required><br>
         Фамилия: <input type="text" name="lastname" required><br>
         Логин: <input type="text" name="login" id="login" required><br>
         <span id="status"></span><br>
         Пароль: <input type="password" name="password" required><br>
+        Фото: <input type="file" name="photo" accept="image/*"><br>
         <input type="submit" value="Зарегистрироваться" id="submitBtn">
     </form>
 

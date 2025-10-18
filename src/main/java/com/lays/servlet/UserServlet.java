@@ -1,4 +1,4 @@
-package com.lays.server;
+package com.lays.servlet;
 
 import com.lays.dto.UserDto;
 import com.lays.service.UserService;

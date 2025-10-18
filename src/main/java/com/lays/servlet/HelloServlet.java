@@ -1,4 +1,4 @@
-package com.lays.server;
+package com.lays.servlet;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

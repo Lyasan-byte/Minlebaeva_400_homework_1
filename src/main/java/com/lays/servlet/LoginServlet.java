@@ -1,4 +1,8 @@
-package com.lays.server;
+package com.lays.servlet;
+
+import com.lays.dao.UserDao;
+import com.lays.dao.UserDaoImpl;
+import com.lays.entity.User;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -23,9 +27,10 @@ public class LoginServlet extends HttpServlet {
             return;
         }
 
-        String storedPassword = SignUpServlet.USERS.get(login);
+        UserDao userDao = new UserDaoImpl();
+        User user = userDao.getByLogin(login);
 
-        if (storedPassword != null && storedPassword.equals(password)) {
+        if (user != null && user.getPassword().equals(password)) {
             HttpSession httpSession = req.getSession();
             httpSession.setAttribute("user", login);
             httpSession.setMaxInactiveInterval(60 * 60);

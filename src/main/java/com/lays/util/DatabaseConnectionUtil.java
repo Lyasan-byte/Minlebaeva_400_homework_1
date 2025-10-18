@@ -11,7 +11,7 @@ public class DatabaseConnectionUtil {
         if (connection == null) {
             try {
                 Class.forName("org.postgresql.Driver");
-                connection = DriverManager.getConnection("jdbc.postgres://localhost:5432/orisFirst", "postgres",  "1234");
+                connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/orisFirst", "postgres",  "1234");
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             } catch (SQLException e) {

@@ -6,15 +6,17 @@ public class User {
     private String lastname;
     private String login;
     private String password;
+    private String photoUrl;
 
     public User() {}
 
-    public User(Integer id, String name, String lastname, String login, String password) {
+    public User(Integer id, String name, String lastname, String login, String password, String photoUrl) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
         this.login = login;
         this.password = password;
+        this.photoUrl = photoUrl;
     }
 
     public Integer getId() {
@@ -35,5 +37,9 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
     }
 }

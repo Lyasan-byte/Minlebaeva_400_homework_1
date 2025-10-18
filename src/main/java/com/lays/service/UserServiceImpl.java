@@ -31,7 +31,8 @@ public class UserServiceImpl implements UserService {
                 user.getName(),
                 user.getLastname(),
                 user.getLogin(),
-                hashedPassword
+                hashedPassword,
+                user.getPhotoUrl()
         );
 
         userDao.save(userWithHashedPassword);
