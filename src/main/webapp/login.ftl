@@ -1,6 +1,6 @@
 <#include "base.ftl">
 
-<#macro title>Enter</#macro>
+<#macro title>Вход</#macro>
 
 <#macro content>
     <form method="post" action="/login">

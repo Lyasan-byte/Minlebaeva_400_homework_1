@@ -11,11 +11,9 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private final UserDao userDao = new UserDaoImpl();
 
-
     @Override
     public List<UserDto> getAll() {
-        return userDao.getAll().stream().map(u -> new UserDto(u.getName(), u.getLogin()))
-                .toList();
+        return userDao.getAllUsersDto();
     }
 
     @Override
@@ -32,7 +30,7 @@ public class UserServiceImpl implements UserService {
                 user.getLastname(),
                 user.getLogin(),
                 hashedPassword,
-                user.getPhotoUrl()
+                user.getImage()
         );
 
         userDao.save(userWithHashedPassword);
@@ -49,5 +47,16 @@ public class UserServiceImpl implements UserService {
             }
         }
         return null;
+    }
+
+    @Override
+    public boolean isLoginAvailable(String login) {
+        User user = userDao.getByLogin(login);
+        return user == null;
+    }
+
+    @Override
+    public User getUserByLogin(String login) {
+        return userDao.getByLogin(login);
     }
 }
